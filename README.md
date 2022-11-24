@@ -1,1 +1,1 @@
-# js_GamePack
+<h2>Welcome Js GamePack.</h2>
