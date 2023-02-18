@@ -21,7 +21,7 @@ export function movePlayer(player, ctx, e){
     if(e == keyDown){
         clear(player, ctx);
         
-        if(!(player.yPos > 450)){
+        if(player.yPos < 450){
             player.yPos += speed;
         }
         
@@ -31,7 +31,7 @@ export function movePlayer(player, ctx, e){
     if(e == keyUp){
         clear(player, ctx);
         
-        if(!(player.yPos < 20)){
+        if(player.yPos > 20){
             player.yPos -= speed;
         }
         

@@ -18,14 +18,12 @@ const computer = {
 // computer
 playerDraw(computer, ctx);
 
-// human
+// user
 playerDraw(player, ctx);
 
 setTimeout(() => {
     document.addEventListener('keypress', (e) =>{
         if(e.code){
-            console.log(e.code);
-            
             movePlayer(player, ctx, e.code);
         }
     })    
