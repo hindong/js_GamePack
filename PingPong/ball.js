@@ -1,19 +1,19 @@
 
 // ball object
 const ball = {
-    x: 0,
-    y: 0,
-    radius: 0,
-    color: 0
+    x: 275,
+    y: 250,
+    radius: 10,
+    color: "yellow"
 };
 
 // 공을 그려줌
 export function drawBall(ctx){
     ctx.beginPath();
-    ctx.arc(275, 250, 10,  0, 2 * Math.PI);
+    ctx.arc(ball.x, ball.y, ball.radius, 0, 2 * Math.PI);
     ctx.stroke();
     ctx.closePath();
-    ctx.fillStyle = "yellow";
+    ctx.fillStyle = ball.color;
     ctx.fill();
 }
 
