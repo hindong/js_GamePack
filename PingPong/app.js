@@ -2,7 +2,7 @@ import { movePlayer, playerDraw } from "./player.js";
 import { drawBall } from "./ball.js";
 
 const canvas = document.querySelector("#main");
-const ctx = canvas.getContext("2d");
+export const ctx = canvas.getContext("2d");
 
 const player = {
     xPos: 530,
@@ -21,7 +21,7 @@ playerDraw(computer, ctx);
 
 // user
 playerDraw(player, ctx);
-drawBall(ctx);
+drawBall();
 
 setTimeout(() => {
     document.addEventListener('keypress', (e) =>{
