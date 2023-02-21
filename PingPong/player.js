@@ -46,5 +46,3 @@ export function clear(object, ctx){
 }
 
 
-// 윗쪽 190  아래 740
-

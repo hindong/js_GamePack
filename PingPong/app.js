@@ -1,4 +1,5 @@
 import { movePlayer, playerDraw } from "./player.js";
+import { drawBall } from "./ball.js";
 
 const canvas = document.querySelector("#main");
 const ctx = canvas.getContext("2d");
@@ -20,6 +21,7 @@ playerDraw(computer, ctx);
 
 // user
 playerDraw(player, ctx);
+drawBall(ctx);
 
 setTimeout(() => {
     document.addEventListener('keypress', (e) =>{
@@ -28,6 +30,8 @@ setTimeout(() => {
         }
     })    
 }, 50);
+
+
 
 
 
