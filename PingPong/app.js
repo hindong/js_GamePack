@@ -1,7 +1,7 @@
 import { movePlayer, drawPlayer } from "./player.js";
-import { drawBall } from "./ball.js";
+import { drawBall, moveBall, animate } from "./ball.js";
 
-const canvas = document.querySelector("#main");
+export const canvas = document.querySelector("#main");
 export const ctx = canvas.getContext("2d");
 
 const player = {
@@ -23,6 +23,9 @@ drawPlayer(computer, ctx);
 drawPlayer(player, ctx);
 drawBall();
 
+
+animate();
+
 setTimeout(() => {
     document.addEventListener('keypress', (e) =>{
         if(e.code){
@@ -30,6 +33,8 @@ setTimeout(() => {
         }
     })    
 }, 50);
+
+
 
 
 
