@@ -19,6 +19,10 @@ export function drawBall(){
     console.log(ctx);
 }
 
+// 공의 움직임
+export function moveBall(){
+    //...
+}
 
 // 공 충돌 감지
 export function collision(){

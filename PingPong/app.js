@@ -1,4 +1,4 @@
-import { movePlayer, playerDraw } from "./player.js";
+import { movePlayer, drawPlayer } from "./player.js";
 import { drawBall } from "./ball.js";
 
 const canvas = document.querySelector("#main");

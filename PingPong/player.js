@@ -11,7 +11,7 @@ export function drawPlayer(player, ctx){
     ctx.fillRect(player.xPos, player.yPos, playerWidth, playerHeight);
     ctx.closePath();    
     // draw 최적화
-    requestAnimationFrame(playerDraw);
+    requestAnimationFrame(drawPlayer);
 }
 
 // 키를 누르면 플레이어 움직임 (방향키)
@@ -26,9 +26,7 @@ export function movePlayer(player, ctx, e){
         }
         
         drawPlayer(player, ctx);
-    }
-
-    if(e == keyUp){
+    }else if(e == keyUp){
         clear(player, ctx);
         
         if(player.yPos > 20){
