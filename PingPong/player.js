@@ -6,7 +6,7 @@ const playerWidth = 10;
 const playerHeight = 70;
 
 
-export function playerDraw(player, ctx){
+export function drawPlayer(player, ctx){
     ctx.fillStyle = "rgb(200,0,0)";
     ctx.fillRect(player.xPos, player.yPos, playerWidth, playerHeight);
     ctx.closePath();    
@@ -25,7 +25,7 @@ export function movePlayer(player, ctx, e){
             player.yPos += speed;
         }
         
-        playerDraw(player, ctx);
+        drawPlayer(player, ctx);
     }
 
     if(e == keyUp){
@@ -35,7 +35,7 @@ export function movePlayer(player, ctx, e){
             player.yPos -= speed;
         }
         
-        playerDraw(player, ctx);
+        drawPlayer(player, ctx);
     }
 }
 

@@ -17,10 +17,10 @@ const computer = {
 }
 
 // computer
-playerDraw(computer, ctx);
+drawPlayer(computer, ctx);
 
 // user
-playerDraw(player, ctx);
+drawPlayer(player, ctx);
 drawBall();
 
 setTimeout(() => {
