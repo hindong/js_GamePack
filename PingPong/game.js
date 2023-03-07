@@ -10,6 +10,45 @@ export const ball = {
     dy: 2,  // 공의 y방향 이동속도
 };
 
+const player = {
+    xPos: 530,
+    yPos: 450,
+    width:10,
+    height:70,
+    move: true,
+};
+
+const computer = {
+    xPos: 10,
+    yPos: 10,
+    width:10,
+    height:70,
+    move: true,
+}
+
+
+
+// 게임 시작
+export function start(){
+    // computer 
+    drawPlayer(computer);
+    // player
+    drawPlayer(player);
+
+    drawBall();
+
+    animate();
+
+    setTimeout(() => {
+        document.addEventListener('keypress', (e) =>{
+            if(e.code){
+                movePlayer(player, e.code);
+            }
+        })    
+    }, 50);
+}
+
+
 export function drawPlayer(player){
     ctx.beginPath();
     ctx.fillStyle = "rgb(200,0,0)";
