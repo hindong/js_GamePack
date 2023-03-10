@@ -1,5 +1,10 @@
 import {canvas, ctx} from "./app.js";
 
+const keyUp = "KeyW";
+const keyDown = "KeyS";
+const speed = 15;
+
+
 // ball object
 export const ball = {
     x: 275,
@@ -26,23 +31,27 @@ const computer = {
     move: true,
 }
 
-
-
 // 게임 시작
 export function start(){
     drawPlayer(computer);       // computer 
     drawPlayer(player);         // player
     drawBall();
 
-    animate();
+    document.addEventListener('keydown', (e) => {
+        if(e.code === "KeyW" || e.code === "KeyS"){
+            movePlayer(player, e.code);
+        }
+    });    
 
-    setTimeout(() => {
-        document.addEventListener('keypress', (e) =>{
-            if(e.code){
-                movePlayer(player, e.code);
-            }
-        })    
-    }, 50);
+    requestAnimationFrame(update);
+}
+
+// 게임 업데이트
+function update(){
+    moveBall();              // 공을 움직임
+    drawPlayer(computer);    // computer를 다시 그림
+    drawPlayer(player);      // player를 다시 그림
+    requestAnimationFrame(update);
 }
 
 
@@ -82,7 +91,7 @@ export function movePlayer(player, e){
 
 // canvas 잔상을 지워주는 함수
 export function clear(object){
-    ctx.clearRect(object.xPos, object.yPos, player.width, player.height);
+    ctx.clearRect(object.xPos, object.yPos, object.width, object.height);
     ctx.closePath();
 }
 
@@ -104,7 +113,6 @@ export function drawBall(){
 
 // 공의 움직임
 export function moveBall(){
-    
     //ctx.clearRect(0,0,canvas.width,canvas.height);
 
     // 공 충돌 감지
@@ -118,11 +126,6 @@ export function moveBall(){
     ball.x += ball.dx;
     ball.y += ball.dy;
     drawBall();
-}
-
-export function animate(){
-    moveBall();
-    requestAnimationFrame(animate);
 }
 
 // 공 충돌 감지
