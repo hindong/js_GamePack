@@ -30,11 +30,8 @@ const computer = {
 
 // 게임 시작
 export function start(){
-    // computer 
-    drawPlayer(computer);
-    // player
-    drawPlayer(player);
-
+    drawPlayer(computer);       // computer 
+    drawPlayer(player);         // player
     drawBall();
 
     animate();
