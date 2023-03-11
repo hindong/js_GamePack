@@ -11,8 +11,8 @@ export const ball = {
     y: 250,
     radius: 10,
     color: "yellow",
-    dx: 2,  // 공의 x방향 이동속도 
-    dy: 2,  // 공의 y방향 이동속도
+    dx: 2,              // 공의 x방향 이동속도 
+    dy: 2,              // 공의 y방향 이동속도
 };
 
 const player = {
@@ -48,6 +48,7 @@ export function start(){
 
 // 게임 업데이트
 function update(){
+    ctx.clearRect(0,0,canvas.width,canvas.height);
     moveBall();              // 공을 움직임
     drawPlayer(computer);    // computer를 다시 그림
     drawPlayer(player);      // player를 다시 그림
@@ -137,4 +138,12 @@ function clearBall(){
     ctx.beginPath();
     ctx.arc();
     ctx.fill();
+}
+
+
+
+
+
+function initTitle(){
+    //...
 }
