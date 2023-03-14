@@ -57,8 +57,6 @@ export function drawPlayer(player){
     ctx.fillRect(player.xPos, player.yPos, player.width, player.height);
     ctx.fill();
     ctx.closePath();    
-    // draw 최적화
-    requestAnimationFrame(drawPlayer);
 }
 
 
@@ -67,16 +65,12 @@ export function drawPlayer(player){
 export function movePlayer(player, e){
     
     if(e == keyDown){
-        clear(player);
-        
         if(player.yPos < 450){
             player.yPos += speed;
         }
         
         drawPlayer(player);
     }else if(e == keyUp){
-        clear(player);
-        
         if(player.yPos > 20){
             player.yPos -= speed;
         }
@@ -84,13 +78,6 @@ export function movePlayer(player, e){
         drawPlayer(player);
     }
 }
-
-// canvas 잔상을 지워주는 함수
-export function clear(object){
-    ctx.clearRect(object.xPos, object.yPos, object.width, object.height);
-    ctx.closePath();
-}
-
 
 // 공을 그려줌
 export function drawBall(){
@@ -127,12 +114,6 @@ export function moveBall(){
 // 공 충돌 감지
 export function collision(){
 
-}
-
-function clearBall(){
-    ctx.beginPath();
-    ctx.arc();
-    ctx.fill();
 }
 
 // 이벤트 리스너 등록
