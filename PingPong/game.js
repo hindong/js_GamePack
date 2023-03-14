@@ -32,17 +32,12 @@ const computer = {
 }
 
 // 게임 시작
-export function start(){
+export function initGame(){
     drawPlayer(computer);       // computer 
     drawPlayer(player);         // player
     drawBall();
 
-    document.addEventListener('keydown', (e) => {
-        if(e.code === "KeyW" || e.code === "KeyS"){
-            movePlayer(player, e.code);
-        }
-    });    
-
+    registerEventListeners();
     requestAnimationFrame(update);
 }
 
@@ -140,8 +135,17 @@ function clearBall(){
     ctx.fill();
 }
 
+// 이벤트 리스너 등록
 
+function registerEventListeners(){
+    document.addEventListener('keydown', (e) => {
+        if(e.code === "KeyW" || e.code === "KeyS"){
+            movePlayer(player, e.code);
+        }
+    });
 
+    //...do something
+}
 
 
 function initTitle(){
