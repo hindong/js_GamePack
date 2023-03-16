@@ -55,7 +55,6 @@ export function drawPlayer(player){
     ctx.beginPath();
     ctx.fillStyle = "rgb(200,0,0)";
     ctx.fillRect(player.xPos, player.yPos, player.width, player.height);
-    ctx.fill();
     ctx.closePath();    
 }
 
@@ -69,20 +68,18 @@ export function movePlayer(player, e){
             player.yPos += speed;
         }
         
-        drawPlayer(player);
     }else if(e == keyUp){
         if(player.yPos > 20){
             player.yPos -= speed;
         }
         
-        drawPlayer(player);
     }
 }
 
 // 공을 그려줌
 export function drawBall(){
     // 이전 위치를 지워줌
-    ctx.clearRect(ball.x - ball.radius, ball.y - ball.radius, ball.radius * 2, ball.radius * 2);
+    // ctx.clearRect(ball.x - ball.radius, ball.y - ball.radius, ball.radius * 2, ball.radius * 2);
 
     // 공을 그림
     ctx.beginPath();
@@ -96,7 +93,6 @@ export function drawBall(){
 
 // 공의 움직임
 export function moveBall(){
-    //ctx.clearRect(0,0,canvas.width,canvas.height);
 
     // 공 충돌 감지
     if (ball.x + ball.dx > canvas.width - ball.radius || ball.x + ball.dx < ball.radius) {
@@ -117,7 +113,6 @@ export function collision(){
 }
 
 // 이벤트 리스너 등록
-
 function registerEventListeners(){
     document.addEventListener('keydown', (e) => {
         if(e.code === "KeyW" || e.code === "KeyS"){
