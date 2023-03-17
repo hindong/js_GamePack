@@ -1,18 +1,25 @@
 import {canvas, ctx} from "./app.js";
 
-const keyUp = "KeyW";
-const keyDown = "KeyS";
+// const keyUp = "KeyW";
+// const keyDown = "KeyS";
+
+const keyCode = {
+    keyUp: "KeyW",
+    keyDown: "KeyS",
+    keyESC: "Escape",
+}
+
 const speed = 15;
 
 
 // ball object
-export const ball = {
-    x: 275,
-    y: 250,
+const ball = {
+    xPos: 275,
+    yPos: 250,
     radius: 10,
     color: "yellow",
-    dx: 2,              // 공의 x방향 이동속도 
-    dy: 2,              // 공의 y방향 이동속도
+    dx: 3,              // 공의 x방향 이동속도 
+    dy: 3,              // 공의 y방향 이동속도
 };
 
 const player = {
@@ -31,14 +38,18 @@ const computer = {
     move: true,
 }
 
-// 게임 시작
-export function initGame(){
-    drawPlayer(computer);       // computer 
-    drawPlayer(player);         // player
-    drawBall();
+// 데이터 초기화
+function initGame(){
 
-    registerEventListeners();
+    registerEventListeners();   // 이벤트 리스너 초기화
+
+}
+
+// 게임 시작
+export function gameStart(){
+    initGame();
     requestAnimationFrame(update);
+
 }
 
 // 게임 업데이트
@@ -51,7 +62,7 @@ function update(){
 }
 
 
-export function drawPlayer(player){
+function drawPlayer(player){
     ctx.beginPath();
     ctx.fillStyle = "rgb(200,0,0)";
     ctx.fillRect(player.xPos, player.yPos, player.width, player.height);
@@ -61,14 +72,14 @@ export function drawPlayer(player){
 
 // 키를 누르면 플레이어 움직임 (방향키)
 // key -  w : up , s : down
-export function movePlayer(player, e){
-    
-    if(e == keyDown){
+function movePlayer(player, code){
+
+    if(code === keyCode.keyDown){
         if(player.yPos < 450){
             player.yPos += speed;
         }
         
-    }else if(e == keyUp){
+    }else if(code === keyCode.keyUp){
         if(player.yPos > 20){
             player.yPos -= speed;
         }
@@ -77,13 +88,9 @@ export function movePlayer(player, e){
 }
 
 // 공을 그려줌
-export function drawBall(){
-    // 이전 위치를 지워줌
-    // ctx.clearRect(ball.x - ball.radius, ball.y - ball.radius, ball.radius * 2, ball.radius * 2);
-
-    // 공을 그림
+function drawBall(){
     ctx.beginPath();
-    ctx.arc(ball.x, ball.y, ball.radius, 0, 2 * Math.PI);
+    ctx.arc(ball.xPos, ball.yPos, ball.radius, 0, 2 * Math.PI);
     ctx.stroke();
     ctx.closePath();
     ctx.fillStyle = ball.color;
@@ -92,32 +99,37 @@ export function drawBall(){
 }
 
 // 공의 움직임
-export function moveBall(){
-
+function moveBall(){
     // 공 충돌 감지
-    if (ball.x + ball.dx > canvas.width - ball.radius || ball.x + ball.dx < ball.radius) {
+    // x 충돌
+    if (ball.xPos + ball.dx > canvas.width - ball.radius || ball.xPos + ball.dx < ball.radius) {
         ball.dx = -ball.dx;
     }
-    if (ball.y + ball.dy > canvas.height - ball.radius || ball.y + ball.dy < ball.radius) {
+
+    // y 충돌 
+    if (ball.yPos + ball.dy > canvas.height - ball.radius || ball.yPos + ball.dy < ball.radius) {
         ball.dy = -ball.dy;
     }
 
-    ball.x += ball.dx;
-    ball.y += ball.dy;
+    ball.xPos += ball.dx;
+    ball.yPos += ball.dy;
+    
     drawBall();
 }
 
 // 공 충돌 감지
-export function collision(){
+function collisionDetection(){
 
 }
 
 // 이벤트 리스너 등록
 function registerEventListeners(){
     document.addEventListener('keydown', (e) => {
-        if(e.code === "KeyW" || e.code === "KeyS"){
+        
+        if(e.code === keyCode.keyUp || e.code === keyCode.keyDown){
             movePlayer(player, e.code);
         }
+
     });
 
     //...do something
