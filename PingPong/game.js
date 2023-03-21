@@ -28,6 +28,7 @@ const player = {
     width:10,
     height:70,
     move: true,
+    score: 0,
 };
 
 const computer = {
@@ -36,20 +37,18 @@ const computer = {
     width:10,
     height:70,
     move: true,
+    score: 0,
 }
 
 // 데이터 초기화
 function initGame(){
-
     registerEventListeners();   // 이벤트 리스너 초기화
-
 }
 
 // 게임 시작
 export function gameStart(){
     initGame();
     requestAnimationFrame(update);
-
 }
 
 // 게임 업데이트
@@ -103,7 +102,8 @@ function moveBall(){
     // 공 충돌 감지
     // x 충돌
     if (ball.xPos + ball.dx > canvas.width - ball.radius || ball.xPos + ball.dx < ball.radius) {
-        ball.dx = -ball.dx;
+        updateScore();
+        // ball.dx = -ball.dx;
     }
 
     // y 충돌 
@@ -135,7 +135,21 @@ function registerEventListeners(){
     //...do something
 }
 
-
+// 타이틀 그려줌
 function initTitle(){
     //...
+}
+
+// 점수 계산
+function updateScore(){
+    //gameStart();
+    resetBall();
+    // alert("score++");
+}
+
+// 게임 재시작
+
+function resetBall(){
+    ball.xPos = 275;
+    ball.yPos = 250;
 }
