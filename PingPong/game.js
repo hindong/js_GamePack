@@ -1,16 +1,14 @@
 import {canvas, ctx} from "./app.js";
 
-// const keyUp = "KeyW";
-// const keyDown = "KeyS";
+let     isPaused = false;   // 게임 일시정지
+const   speed = 15;
+const   finishScore = 10;
 
 const keyCode = {
     keyUp: "KeyW",
     keyDown: "KeyS",
     keyESC: "Escape",
 }
-
-const speed = 15;
-
 
 // ball object
 const ball = {
@@ -28,7 +26,6 @@ const player = {
     width:10,
     height:70,
     move: true,
-    score: 0,
 };
 
 const computer = {
@@ -37,7 +34,6 @@ const computer = {
     width:10,
     height:70,
     move: true,
-    score: 0,
 }
 
 // 데이터 초기화
@@ -46,9 +42,10 @@ function initGame(){
 }
 
 // 게임 시작
-export function gameStart(){
+export function startGame(){
     initGame();
     requestAnimationFrame(update);
+
 }
 
 // 게임 업데이트
@@ -69,7 +66,7 @@ function drawPlayer(player){
 }
 
 
-// 키를 누르면 플레이어 움직임 (방향키)
+// *** (방향키) ***
 // key -  w : up , s : down
 function movePlayer(player, code){
 
@@ -86,7 +83,6 @@ function movePlayer(player, code){
     }
 }
 
-// 공을 그려줌
 function drawBall(){
     ctx.beginPath();
     ctx.arc(ball.xPos, ball.yPos, ball.radius, 0, 2 * Math.PI);
@@ -97,18 +93,17 @@ function drawBall(){
 
 }
 
-// 공의 움직임
 function moveBall(){
     // 공 충돌 감지
     // x 충돌
     if (ball.xPos + ball.dx > canvas.width - ball.radius || ball.xPos + ball.dx < ball.radius) {
         updateScore();
-        // ball.dx = -ball.dx;
+        // todo :: 점수 계산
     }
 
     // y 충돌 
     if (ball.yPos + ball.dy > canvas.height - ball.radius || ball.yPos + ball.dy < ball.radius) {
-        ball.dy = -ball.dy;
+        ball.dy = -ball.dy;         // 부호를 바꿔준다.
     }
 
     ball.xPos += ball.dx;
@@ -128,14 +123,15 @@ function registerEventListeners(){
         
         if(e.code === keyCode.keyUp || e.code === keyCode.keyDown){
             movePlayer(player, e.code);
+        }else if(e.code === keyCode.keyESC){
+            isPaused = !isPaused;       // pause 상태를 toggle
+            alert('Pause!');
         }
-
     });
 
-    //...do something
 }
 
-// 타이틀 그려줌
+
 function initTitle(){
     //...
 }
@@ -147,7 +143,15 @@ function updateScore(){
     // alert("score++");
 }
 
+// 게임 종료
+function gameOver(){
+    
+}
+
 // 게임 재시작
+function resumeGame(){
+
+}
 
 function resetBall(){
     ball.xPos = 275;
