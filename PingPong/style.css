@@ -1,0 +1,25 @@
+body{
+    display: flex;
+    width: 100vw;
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+    justify-content: center;
+    align-items: center;
+}
+
+#score_board{
+    position: absolute;
+    display: flex;
+    height: 40px;
+    width: 200px;
+    justify-content: space-between;
+    top: 3%;
+    font-size: 40px;
+    /* background-color: red; */
+}
+
+
+#main{
+    border: 1px solid black;
+  }
