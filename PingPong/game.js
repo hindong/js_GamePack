@@ -3,6 +3,9 @@ import {canvas, ctx} from "./app.js";
 let     isPaused = false;   // 게임 일시정지
 const   speed = 15;
 const   finishScore = 10;
+const   leftPlayerScore = document.getElementById('ai_score');
+const   rightPlayerScore = document.getElementById('player_score');
+
 
 const keyCode = {
     keyUp: "KeyW",
@@ -26,6 +29,8 @@ const player = {
     width:10,
     height:70,
     move: true,
+    score: 0,
+    id: 1,
 };
 
 const computer = {
@@ -34,7 +39,9 @@ const computer = {
     width:10,
     height:70,
     move: true,
-}
+    score: 0,
+    id: 0,
+};
 
 // 데이터 초기화
 function initGame(){
@@ -96,9 +103,12 @@ function drawBall(){
 function moveBall(){
     // 공 충돌 감지
     // x 충돌
-    if (ball.xPos + ball.dx > canvas.width - ball.radius || ball.xPos + ball.dx < ball.radius) {
-        updateScore();
-        // todo :: 점수 계산
+    
+    // 공이 벽에 닿았을 때 점수를 계산 해준다.
+    if (ball.xPos + ball.dx > canvas.width - ball.radius) {
+        updateScore(computer.id);     // 오른쪽 벽에 닿았을 경우
+    }else if(ball.xPos + ball.dx < ball.radius){
+        updateScore(player.id);   // 왼쪽 벽에 닿았을 경우
     }
 
     // y 충돌 
@@ -137,10 +147,14 @@ function initTitle(){
 }
 
 // 점수 계산
-function updateScore(){
+function updateScore(id){
     //gameStart();
+    if(id == 0){
+        leftPlayerScore.innerText = ++computer.score;
+    }else if(id == 1){
+        rightPlayerScore.innerText = ++player.score;
+    }
     resetBall();
-    // alert("score++");
 }
 
 // 게임 종료
@@ -153,7 +167,9 @@ function resumeGame(){
 
 }
 
+// 공 초기화
 function resetBall(){
     ball.xPos = 275;
     ball.yPos = 250;
 }
+
