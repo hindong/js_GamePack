@@ -77,16 +77,11 @@ function drawPlayer(player){
 // key -  w : up , s : down
 function movePlayer(player, code){
 
-    if(code === keyCode.keyDown){
-        if(player.yPos < 450){
+    if(code === keyCode.keyDown && player.yPos < 450){
             player.yPos += speed;
-        }
         
-    }else if(code === keyCode.keyUp){
-        if(player.yPos > 20){
+    }else if(code === keyCode.keyUp && player.yPos > 20){
             player.yPos -= speed;
-        }
-        
     }
 }
 
