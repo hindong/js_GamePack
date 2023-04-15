@@ -1,11 +1,12 @@
 import {canvas, ctx} from "./app.js";
 
-let     isPaused = false;   // 게임 일시정지
+let     gamePause = false;   // 게임 일시정지
 const   speed = 15;
 const   finishScore = 10;
 const   leftPlayerScore = document.getElementById('ai_score');
 const   rightPlayerScore = document.getElementById('player_score');
-
+const   paddleHeight = 70;
+const   paddleWidth = 10;
 
 const keyCode = {
     keyUp: "KeyW",
@@ -26,8 +27,8 @@ const ball = {
 const player = {
     xPos: 530,
     yPos: 450,
-    width:10,
-    height:70,
+    width: paddleWidth,
+    height: paddleHeight,
     move: true,
     score: 0,
     id: 1,
@@ -36,8 +37,8 @@ const player = {
 const computer = {
     xPos: 10,
     yPos: 10,
-    width:10,
-    height:70,
+    width: paddleWidth,
+    height: paddleHeight,
     move: true,
     score: 0,
     id: 0,
@@ -76,7 +77,6 @@ function drawPlayer(player){
 // *** (방향키) ***
 // key -  w : up , s : down
 function movePlayer(player, code){
-
     if(code === keyCode.keyDown && player.yPos < 450){
             player.yPos += speed;
         
@@ -97,13 +97,25 @@ function drawBall(){
 
 function moveBall(){
     // 공 충돌 감지
-    // x 충돌
     
     // 공이 벽에 닿았을 때 점수를 계산 해준다.
     if (ball.xPos + ball.dx > canvas.width - ball.radius) {
         updateScore(computer.id);     // 오른쪽 벽에 닿았을 경우
     }else if(ball.xPos + ball.dx < ball.radius){
         updateScore(player.id);   // 왼쪽 벽에 닿았을 경우
+    }
+    
+    // 패들에 닿았을 경우
+    if (ball.yPos + ball.radius > player.yPos && 
+        ball.yPos - ball.radius < player.yPos + paddleHeight && 
+        ball.xPos - ball.radius < player.xPos + paddleWidth && 
+        ball.xPos + ball.radius > player.xPos) {
+        ball.dx = -ball.dx; // x방향으로 튕겨나오기
+    }else if (ball.yPos + ball.radius > computer.yPos &&
+            ball.yPos - ball.radius < computer.yPos + paddleHeight &&
+            ball.xPos - ball.radius < computer.xPos + paddleWidth &&
+            ball.xPos + ball.radius > computer.xPos) {
+        ball.dx = -ball.dx; // x방향으로 튕겨나오기
     }
 
     // y 충돌 
@@ -129,7 +141,7 @@ function registerEventListeners(){
         if(e.code === keyCode.keyUp || e.code === keyCode.keyDown){
             movePlayer(player, e.code);
         }else if(e.code === keyCode.keyESC){
-            isPaused = !isPaused;       // pause 상태를 toggle
+            gamePause = !gamePause;       // pause 상태를 toggle
             alert('Pause!');
         }
     });
@@ -143,11 +155,13 @@ function initTitle(){
 
 // 점수 계산
 function updateScore(id){
-    //gameStart();
-    if(id == 0){
-        leftPlayerScore.innerText = ++computer.score;
-    }else if(id == 1){
-        rightPlayerScore.innerText = ++player.score;
+    switch(id){
+        case 0:
+            leftPlayerScore.innerText = ++computer.score;
+            break;
+        case 1:
+            rightPlayerScore.innerText = ++player.score;
+            break;
     }
     resetBall();
 }
