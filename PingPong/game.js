@@ -96,7 +96,6 @@ function drawBall(){
 }
 
 function moveBall(){
-    // 공 충돌 감지
     
     // 공이 벽에 닿았을 때 점수를 계산 해준다.
     if (ball.xPos + ball.dx > canvas.width - ball.radius) {
@@ -118,7 +117,7 @@ function moveBall(){
         ball.dx = -ball.dx; // x방향으로 튕겨나오기
     }
 
-    // y 충돌 
+    // 공이 캔버스 y축 범위를 벗어났을때 
     if (ball.yPos + ball.dy > canvas.height - ball.radius || ball.yPos + ball.dy < ball.radius) {
         ball.dy = -ball.dy;         // 부호를 바꿔준다.
     }
